@@ -1,0 +1,65 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "resources\r\n| where type == \"microsoft.web/sites\"\r\n| project id,name,resourceGroup,subscriptionId",
+        "size": 0,
+        "title": "Web Apps",
+        "exportedParameters": [
+          {
+            "fieldName": "resourceGroup",
+            "parameterName": "resourceGroup",
+            "parameterType": 1
+          },
+          {
+            "fieldName": "name",
+            "parameterName": "name",
+            "parameterType": 1
+          },
+          {
+            "fieldName": "subscriptionId",
+            "parameterName": "subscriptionId",
+            "parameterType": 1
+          }
+        ],
+        "queryType": 1,
+        "resourceType": "microsoft.resourcegraph/resources",
+        "crossComponentResources": [
+          "value::all"
+        ]
+      },
+      "name": "query - 1"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "{\"version\":\"ARMEndpoint/1.0\",\"data\":null,\"headers\":[],\"method\":\"POST\",\"path\":\"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Web/sites/{name}/config/appsettings/list?\",\"urlParams\":[{\"key\":\"api-version\",\"value\":\"2019-08-01\"}],\"batchDisabled\":false,\"transformers\":[{\"type\":\"jsonpath\",\"settings\":{\"tablePath\":\"$\",\"columns\":[{\"path\":\"$.properties['CosmosDb:Account']\",\"columnid\":\"Account\"},{\"path\":\"$.properties['CosmosDb:DatabaseName']\",\"columnid\":\"DatabaseName\"},{\"path\":\"$.properties['CosmosDb:ContainerName']\",\"columnid\":\"ContainerName\"},{\"path\":\"$['id']\",\"columnid\":\"Name\",\"substringRegexMatch\":\"(?<=sites\\\\/)[^\\\\/]*\"}]}}]}",
+        "size": 0,
+        "title": "CosmosDB",
+        "queryType": 12,
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "Account",
+              "formatter": 13,
+              "formatOptions": {
+                "linkTarget": null,
+                "showIcon": true
+              }
+            }
+          ]
+        },
+        "sortBy": []
+      },
+      "name": "query - 0"
+    }
+  ],
+  "fallbackResourceIds": [
+    "Azure Monitor"
+  ],
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+}

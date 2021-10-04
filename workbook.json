@@ -1,0 +1,1072 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 1,
+      "content": {
+        "json": "# Azure Monitor Workbook\r\n## Microsoft Learn Module\r\nThis is a test workbook"
+      },
+      "name": "text - 0"
+    },
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "parameters": [
+          {
+            "id": "7bb178af-7e8c-40b5-9e8c-914569b6f0af",
+            "version": "KqlParameterItem/1.0",
+            "name": "Subscription",
+            "type": 6,
+            "isRequired": true,
+            "value": "/subscriptions/9b65ec1f-c8e3-4ec5-a482-56784190935b",
+            "typeSettings": {
+              "additionalResourceOptions": [],
+              "includeAll": true,
+              "showDefault": false
+            },
+            "timeContext": {
+              "durationMs": 86400000
+            }
+          }
+        ],
+        "style": "pills",
+        "queryType": 0,
+        "resourceType": "microsoft.operationalinsights/workspaces"
+      },
+      "customWidth": "50",
+      "name": "parameters - 1"
+    },
+    {
+      "type": 11,
+      "content": {
+        "version": "LinkItem/1.0",
+        "style": "tabs",
+        "links": [
+          {
+            "id": "749c73c0-2bb7-406a-884f-da8a888a3ced",
+            "cellValue": "selectedTab",
+            "linkTarget": "parameter",
+            "linkLabel": "Overview",
+            "subTarget": "overview",
+            "style": "link"
+          },
+          {
+            "id": "8bb62100-f083-4ab8-9367-7435b17ce55a",
+            "cellValue": "selectedTab",
+            "linkTarget": "parameter",
+            "linkLabel": "Monitoring",
+            "subTarget": "monitoring",
+            "style": "link"
+          },
+          {
+            "id": "e0bf8338-b6c1-417a-ad55-833a3855ba42",
+            "cellValue": "selectedTab",
+            "linkTarget": "parameter",
+            "linkLabel": "Applications",
+            "subTarget": "applications",
+            "style": "link"
+          },
+          {
+            "id": "5a75bc2c-12b0-4e3f-a0f7-4bfe3f0e57cf",
+            "cellValue": "selectedTab",
+            "linkTarget": "parameter",
+            "linkLabel": "Governance",
+            "subTarget": "governance",
+            "style": "link"
+          },
+          {
+            "id": "0e541ed1-0f93-413f-8b1b-0586bf036af2",
+            "cellValue": "selectedTab",
+            "linkTarget": "parameter",
+            "linkLabel": "Compute",
+            "subTarget": "compute",
+            "style": "link"
+          }
+        ]
+      },
+      "name": "links - 2"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "summarize count() by location",
+              "size": 0,
+              "title": "Resources distribution per region",
+              "exportFieldName": "location",
+              "exportParameterName": "resourceLocation",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscription}"
+              ],
+              "visualization": "map",
+              "mapSettings": {
+                "locInfo": "AzureLoc",
+                "locInfoColumn": "location",
+                "sizeSettings": "count_",
+                "sizeAggregation": "Sum",
+                "labelSettings": "location",
+                "legendMetric": "count_",
+                "legendAggregation": "Sum",
+                "itemColorSettings": {
+                  "nodeColorField": "count_",
+                  "colorAggregation": "Sum",
+                  "type": "heatmap",
+                  "heatmapPalette": "greenRed"
+                }
+              }
+            },
+            "name": "query - 0"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources \r\n| summarize count() by type\r\n",
+              "size": 0,
+              "title": "Resource types",
+              "exportFieldName": "type",
+              "exportParameterName": "resourceType",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscription}"
+              ],
+              "visualization": "tiles",
+              "tileSettings": {
+                "titleContent": {
+                  "columnMatch": "type",
+                  "formatter": 1
+                },
+                "leftContent": {
+                  "columnMatch": "count_",
+                  "formatter": 12,
+                  "formatOptions": {
+                    "palette": "auto"
+                  },
+                  "numberFormat": {
+                    "unit": 17,
+                    "options": {
+                      "style": "decimal",
+                      "maximumFractionDigits": 2,
+                      "maximumSignificantDigits": 3
+                    }
+                  }
+                },
+                "showBorder": false
+              }
+            },
+            "name": "query - 1"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources\r\n| where  type == \"{resourceType}\"",
+              "size": 0,
+              "title": "Resource types",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscription}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "name",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "type",
+                    "formatter": 16,
+                    "formatOptions": {
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "subscriptionId",
+                    "formatter": 15,
+                    "formatOptions": {
+                      "linkTarget": null,
+                      "showIcon": true
+                    }
+                  }
+                ]
+              }
+            },
+            "conditionalVisibility": {
+              "parameterName": "resourceType",
+              "comparison": "isNotEqualTo"
+            },
+            "name": "query - 2"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "selectedTab",
+        "comparison": "isEqualTo",
+        "value": "overview"
+      },
+      "name": "group - Overview",
+      "styleSettings": {
+        "showBorder": true
+      }
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"ARMEndpoint/1.0\",\"data\":null,\"headers\":[],\"method\":\"GET\",\"path\":\"/subscriptions/{Subscription:id}/providers/Microsoft.Compute/skus?$filter=location eq 'westus'\",\"urlParams\":[{\"key\":\"api-version\",\"value\":\"2019-04-01\"}],\"batchDisabled\":false,\"transformers\":[{\"type\":\"jsonpath\",\"settings\":{\"tablePath\":\"$.*[?(@.resourceType=='virtualMachines')]\",\"columns\":[{\"path\":\"name\",\"columnid\":\"Name\"},{\"path\":\"capabilities[?(@.name=='vCPUs')].value\",\"columnid\":\"vCPUs\"},{\"path\":\"id\",\"columnid\":\"ID\"}]}}]}",
+              "size": 0,
+              "title": "Virtual Machines vCPUs",
+              "queryType": 12
+            },
+            "conditionalVisibility": {
+              "parameterName": "isVisible",
+              "comparison": "isEqualTo",
+              "value": "Never"
+            },
+            "name": "query - 2"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "resources \r\n| where type == \"microsoft.compute/virtualmachines\"\r\n| extend SKU=tostring(properties.hardwareProfile.vmSize)\r\n| project id,name,location,resourceGroup,SKU",
+              "size": 0,
+              "title": "All Virtual machines",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscription}"
+              ]
+            },
+            "conditionalVisibility": {
+              "parameterName": "isVisible",
+              "comparison": "isEqualTo",
+              "value": "Never"
+            },
+            "name": "query - 3"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"Merge/1.0\",\"merges\":[{\"id\":\"d731779a-d3a3-4dd4-8778-d262309b1106\",\"mergeType\":\"innerunique\",\"leftTable\":\"query - 2\",\"rightTable\":\"query - 3\",\"leftColumn\":\"Name\",\"rightColumn\":\"SKU\"}],\"projectRename\":[{\"originalName\":\"[query - 3].id\",\"mergedName\":\"id\",\"fromId\":\"d731779a-d3a3-4dd4-8778-d262309b1106\"},{\"originalName\":\"[query - 2].vCPUs\",\"mergedName\":\"vCPUs\",\"fromId\":\"d731779a-d3a3-4dd4-8778-d262309b1106\"},{\"originalName\":\"[query - 3].SKU\",\"mergedName\":\"SKU\",\"fromId\":\"d731779a-d3a3-4dd4-8778-d262309b1106\"},{\"originalName\":\"[query - 3].location\",\"mergedName\":\"location\",\"fromId\":\"d731779a-d3a3-4dd4-8778-d262309b1106\"},{\"originalName\":\"[query - 3].resourceGroup\",\"mergedName\":\"resourceGroup\",\"fromId\":\"d731779a-d3a3-4dd4-8778-d262309b1106\"},{\"originalName\":\"[query - 2].ID\"},{\"originalName\":\"[query - 3].name\"},{\"originalName\":\"[query - 2].Name\"}]}",
+              "size": 0,
+              "title": "Virtual machines SKUs",
+              "queryType": 7
+            },
+            "showPin": false,
+            "name": "query - 4"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "selectedTab",
+        "comparison": "isEqualTo",
+        "value": "compute"
+      },
+      "name": "group - Compute"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 9,
+            "content": {
+              "version": "KqlParameterItem/1.0",
+              "crossComponentResources": [
+                "{Subscription}"
+              ],
+              "parameters": [
+                {
+                  "id": "fdb5443f-8f8d-4d5b-9b18-fdda6c22935f",
+                  "version": "KqlParameterItem/1.0",
+                  "name": "WebApps",
+                  "type": 5,
+                  "isRequired": true,
+                  "query": "resources\r\n| where type == \"microsoft.web/sites\"\r\n| project id",
+                  "crossComponentResources": [
+                    "{Subscription}"
+                  ],
+                  "value": "/subscriptions/9b65ec1f-c8e3-4ec5-a482-56784190935b/resourceGroups/webapp2/providers/Microsoft.Web/sites/to-do-appjhem5ani7r4lw",
+                  "typeSettings": {
+                    "additionalResourceOptions": []
+                  },
+                  "timeContext": {
+                    "durationMs": 86400000
+                  },
+                  "queryType": 1,
+                  "resourceType": "microsoft.resourcegraph/resources"
+                },
+                {
+                  "id": "dcd5d9fd-e3cb-4f10-9fec-e27147de1f0b",
+                  "version": "KqlParameterItem/1.0",
+                  "name": "CosmosDBs",
+                  "type": 5,
+                  "query": "resources\r\n| where type== \"microsoft.documentdb/databaseaccounts\"\r\n| project id",
+                  "crossComponentResources": [
+                    "{Subscription}"
+                  ],
+                  "value": "/subscriptions/9b65ec1f-c8e3-4ec5-a482-56784190935b/resourceGroups/webapp2/providers/Microsoft.DocumentDB/databaseAccounts/to-do-appjhem5ani7r4lw",
+                  "typeSettings": {
+                    "additionalResourceOptions": []
+                  },
+                  "timeContext": {
+                    "durationMs": 86400000
+                  },
+                  "queryType": 1,
+                  "resourceType": "microsoft.resourcegraph/resources"
+                },
+                {
+                  "id": "cb4bca35-239b-408e-b946-e43bbd87c01c",
+                  "version": "KqlParameterItem/1.0",
+                  "name": "LogAnalytics",
+                  "label": "Log Analytics workspace",
+                  "type": 5,
+                  "isRequired": true,
+                  "query": "resources\r\n| where type =='microsoft.operationalinsights/workspaces'\r\n| project id",
+                  "crossComponentResources": [
+                    "{Subscription}"
+                  ],
+                  "value": "/subscriptions/9b65ec1f-c8e3-4ec5-a482-56784190935b/resourceGroups/DefaultResourceGroup-EUS/providers/Microsoft.OperationalInsights/workspaces/DefaultWorkspace-9b65ec1f-c8e3-4ec5-a482-56784190935b-EUS",
+                  "typeSettings": {
+                    "additionalResourceOptions": [],
+                    "showDefault": false
+                  },
+                  "queryType": 1,
+                  "resourceType": "microsoft.resourcegraph/resources"
+                },
+                {
+                  "id": "ff414760-1269-43f6-bfb1-e0aa7d558ecd",
+                  "version": "KqlParameterItem/1.0",
+                  "name": "TimeRange",
+                  "type": 4,
+                  "isRequired": true,
+                  "typeSettings": {
+                    "selectableValues": [
+                      {
+                        "durationMs": 3600000
+                      },
+                      {
+                        "durationMs": 14400000
+                      },
+                      {
+                        "durationMs": 43200000
+                      },
+                      {
+                        "durationMs": 86400000
+                      },
+                      {
+                        "durationMs": 172800000
+                      },
+                      {
+                        "durationMs": 259200000
+                      },
+                      {
+                        "durationMs": 604800000
+                      },
+                      {
+                        "durationMs": 1209600000
+                      },
+                      {
+                        "durationMs": 2419200000
+                      },
+                      {
+                        "durationMs": 2592000000
+                      },
+                      {
+                        "durationMs": 5184000000
+                      },
+                      {
+                        "durationMs": 7776000000
+                      }
+                    ]
+                  },
+                  "timeContext": {
+                    "durationMs": 86400000
+                  },
+                  "value": {
+                    "durationMs": 3600000
+                  }
+                }
+              ],
+              "style": "pills",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources"
+            },
+            "name": "parameters - 0"
+          },
+          {
+            "type": 10,
+            "content": {
+              "chartId": "workbook7002e23e-69b9-4502-aadc-750cc17d2c7b",
+              "version": "MetricsItem/2.0",
+              "size": 0,
+              "chartType": 2,
+              "resourceType": "microsoft.web/sites",
+              "metricScope": 0,
+              "resourceParameter": "WebApps",
+              "resourceIds": [
+                "{WebApps}"
+              ],
+              "timeContextFromParameter": "TimeRange",
+              "timeContext": {
+                "durationMs": 3600000
+              },
+              "metrics": [
+                {
+                  "namespace": "microsoft.web/sites",
+                  "metric": "microsoft.web/sites--Requests",
+                  "aggregation": 7,
+                  "splitBy": null
+                }
+              ],
+              "title": "(Web App)Number of requests",
+              "gridSettings": {
+                "rowLimit": 10000
+              }
+            },
+            "customWidth": "50",
+            "name": "metric - 1"
+          },
+          {
+            "type": 10,
+            "content": {
+              "chartId": "workbookd3f105b0-d79f-48c8-83f1-292860501a61",
+              "version": "MetricsItem/2.0",
+              "size": 0,
+              "chartType": 2,
+              "resourceType": "microsoft.documentdb/databaseaccounts",
+              "metricScope": 0,
+              "resourceParameter": "CosmosDBs",
+              "resourceIds": [
+                "{CosmosDBs}"
+              ],
+              "timeContextFromParameter": "TimeRange",
+              "timeContext": {
+                "durationMs": 3600000
+              },
+              "metrics": [
+                {
+                  "namespace": "microsoft.documentdb/databaseaccounts",
+                  "metric": "microsoft.documentdb/databaseaccounts-Requests-TotalRequests",
+                  "aggregation": 7,
+                  "splitBy": null
+                }
+              ],
+              "title": "(CosmosDB)Total requests",
+              "gridSettings": {
+                "rowLimit": 10000
+              }
+            },
+            "customWidth": "50",
+            "name": "metric - 2"
+          },
+          {
+            "type": 10,
+            "content": {
+              "chartId": "workbook60bd40a5-835f-476a-b5b8-bb08331e3393",
+              "version": "MetricsItem/2.0",
+              "size": 0,
+              "chartType": 3,
+              "resourceType": "microsoft.web/sites",
+              "metricScope": 0,
+              "resourceParameter": "WebApps",
+              "resourceIds": [
+                "{WebApps}"
+              ],
+              "timeContextFromParameter": "TimeRange",
+              "timeContext": {
+                "durationMs": 3600000
+              },
+              "metrics": [
+                {
+                  "namespace": "microsoft.web/sites",
+                  "metric": "microsoft.web/sites--CpuTime",
+                  "aggregation": 1,
+                  "splitBy": null
+                }
+              ],
+              "title": "(Web App) CPU time",
+              "graphSettings": {
+                "type": 0,
+                "topContent": {
+                  "columnMatch": "Subscription",
+                  "formatter": 1
+                },
+                "centerContent": {
+                  "columnMatch": "microsoft.web/sites--CpuTime",
+                  "formatter": 1,
+                  "numberFormat": {
+                    "unit": 17,
+                    "options": {
+                      "maximumSignificantDigits": 3,
+                      "maximumFractionDigits": 2
+                    }
+                  }
+                }
+              },
+              "gridSettings": {
+                "rowLimit": 10000
+              }
+            },
+            "customWidth": "50",
+            "name": "metric - 3"
+          },
+          {
+            "type": 10,
+            "content": {
+              "chartId": "workbook4cc31679-aa78-4aa7-ac02-414d89fb8e7c",
+              "version": "MetricsItem/2.0",
+              "size": 0,
+              "chartType": 3,
+              "resourceType": "microsoft.documentdb/databaseaccounts",
+              "metricScope": 0,
+              "resourceParameter": "CosmosDBs",
+              "resourceIds": [
+                "{CosmosDBs}"
+              ],
+              "timeContextFromParameter": "TimeRange",
+              "timeContext": {
+                "durationMs": 3600000
+              },
+              "metrics": [
+                {
+                  "namespace": "microsoft.documentdb/databaseaccounts",
+                  "metric": "microsoft.documentdb/databaseaccounts-Requests-NormalizedRUConsumption",
+                  "aggregation": 4,
+                  "splitBy": null
+                }
+              ],
+              "title": "(CosmosDB)RU consumption",
+              "gridSettings": {
+                "rowLimit": 10000
+              }
+            },
+            "customWidth": "50",
+            "name": "metric - 4"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "AppRequests\r\n| summarize RequestsCount=sum(ItemCount) by OperationName, _ResourceId\r\n| order by RequestsCount desc // order from highest to lower (descending)",
+              "size": 0,
+              "title": "(Web App)Usage",
+              "timeContext": {
+                "durationMs": 0
+              },
+              "timeContextFromParameter": "TimeRange",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "crossComponentResources": [
+                "{LogAnalytics}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "OperationName",
+                    "formatter": 18,
+                    "formatOptions": {
+                      "thresholdsOptions": "colors",
+                      "thresholdsGrid": [
+                        {
+                          "operator": "contains",
+                          "thresholdValue": "Create",
+                          "representation": "orange",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "contains",
+                          "thresholdValue": "Delete",
+                          "representation": "redBright",
+                          "text": "{0}{1}"
+                        },
+                        {
+                          "operator": "Default",
+                          "thresholdValue": null,
+                          "representation": "green",
+                          "text": "{0}{1}"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "columnMatch": "Id",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "RequestsCount",
+                    "formatter": 3,
+                    "formatOptions": {
+                      "min": 0,
+                      "palette": "blue"
+                    }
+                  },
+                  {
+                    "columnMatch": "ParentId",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "Unique Users",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "palette": "blue"
+                    }
+                  },
+                  {
+                    "columnMatch": "Unique Users Trend",
+                    "formatter": 9,
+                    "formatOptions": {
+                      "palette": "blue"
+                    }
+                  },
+                  {
+                    "columnMatch": "Unique Sessions",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "palette": "green"
+                    }
+                  },
+                  {
+                    "columnMatch": "Views",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "palette": "yellow"
+                    }
+                  }
+                ]
+              }
+            },
+            "customWidth": "50",
+            "name": "query - 5"
+          },
+          {
+            "type": 10,
+            "content": {
+              "chartId": "workbookc87daabb-1e66-48ef-8d97-6414247cd15a",
+              "version": "MetricsItem/2.0",
+              "size": 0,
+              "chartType": 0,
+              "resourceType": "microsoft.documentdb/databaseaccounts",
+              "metricScope": 0,
+              "resourceParameter": "CosmosDBs",
+              "resourceIds": [
+                "{CosmosDBs}"
+              ],
+              "timeContextFromParameter": "TimeRange",
+              "timeContext": {
+                "durationMs": 3600000
+              },
+              "metrics": [
+                {
+                  "namespace": "microsoft.documentdb/databaseaccounts",
+                  "metric": "microsoft.documentdb/databaseaccounts-Requests-TotalRequests",
+                  "aggregation": 7
+                },
+                {
+                  "namespace": "microsoft.documentdb/databaseaccounts",
+                  "metric": "microsoft.documentdb/databaseaccounts-Requests-TotalRequests",
+                  "aggregation": 7,
+                  "splitBy": "OperationType",
+                  "splitBySortOrder": -1,
+                  "splitByLimit": 3,
+                  "columnName": "Operations"
+                }
+              ],
+              "title": "(CosmosDB)Operations",
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "Subscription",
+                    "formatter": 5
+                  },
+                  {
+                    "columnMatch": "Name",
+                    "formatter": 13,
+                    "formatOptions": {
+                      "linkTarget": "Resource",
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "microsoft.documentdb/databaseaccounts-Requests-TotalRequests",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "min": 0,
+                      "palette": "blue"
+                    },
+                    "numberFormat": {
+                      "unit": 17,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "microsoft.documentdb/databaseaccounts-Requests-TotalRequests Timeline",
+                    "formatter": 21,
+                    "formatOptions": {
+                      "palette": "blue"
+                    }
+                  },
+                  {
+                    "columnMatch": ".*\\/Operations$",
+                    "formatter": 8,
+                    "formatOptions": {
+                      "palette": "blue",
+                      "aggregation": "Sum"
+                    },
+                    "numberFormat": {
+                      "unit": 17,
+                      "options": {
+                        "style": "decimal",
+                        "maximumFractionDigits": 1
+                      }
+                    }
+                  }
+                ],
+                "rowLimit": 10000,
+                "labelSettings": [
+                  {
+                    "columnId": "microsoft.documentdb/databaseaccounts-Requests-TotalRequests",
+                    "label": "Total Requests (Count)"
+                  },
+                  {
+                    "columnId": "microsoft.documentdb/databaseaccounts-Requests-TotalRequests Timeline",
+                    "label": "Total Requests Timeline"
+                  }
+                ]
+              }
+            },
+            "customWidth": "50",
+            "name": "metric - 6"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "selectedTab",
+        "comparison": "isEqualTo",
+        "value": "applications"
+      },
+      "name": "group - Applications"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{\"version\":\"AzureHealthQuery/1.0\",\"queryType\":\"Detailed\"}",
+              "size": 0,
+              "title": "Azure Resource Health",
+              "queryType": 4,
+              "resourceType": "microsoft.resources/subscriptions",
+              "crossComponentResources": [
+                "{Subscription}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "Availability state",
+                    "formatter": 11
+                  }
+                ],
+                "hierarchySettings": {
+                  "treeType": 1,
+                  "groupBy": [
+                    "Availability state"
+                  ]
+                }
+              }
+            },
+            "name": "query - 0"
+          },
+          {
+            "type": 9,
+            "content": {
+              "version": "KqlParameterItem/1.0",
+              "crossComponentResources": [
+                "{Subscription}"
+              ],
+              "parameters": [
+                {
+                  "id": "351363ec-79b6-4b46-82ca-9593dfc52292",
+                  "version": "KqlParameterItem/1.0",
+                  "name": "VirtualMachines",
+                  "label": "Virtual Machines",
+                  "type": 5,
+                  "isRequired": true,
+                  "multiSelect": true,
+                  "quote": "'",
+                  "delimiter": ",",
+                  "query": "resources | where type == \"microsoft.compute/virtualmachines\" | project id",
+                  "crossComponentResources": [
+                    "{Subscription}"
+                  ],
+                  "value": [
+                    "value::all"
+                  ],
+                  "typeSettings": {
+                    "additionalResourceOptions": [
+                      "value::all"
+                    ],
+                    "showDefault": false
+                  },
+                  "timeContext": {
+                    "durationMs": 86400000
+                  },
+                  "defaultValue": "value::all",
+                  "queryType": 1,
+                  "resourceType": "microsoft.resourcegraph/resources"
+                }
+              ],
+              "style": "above",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources"
+            },
+            "name": "parameters - 0"
+          },
+          {
+            "type": 10,
+            "content": {
+              "chartId": "workbook2160defd-7002-4b1d-a347-872a76fc0ac9",
+              "version": "MetricsItem/2.0",
+              "size": 2,
+              "chartType": -3,
+              "resourceType": "microsoft.compute/virtualmachines",
+              "metricScope": 0,
+              "resourceParameter": "VirtualMachines",
+              "resourceIds": [
+                "{VirtualMachines}"
+              ],
+              "timeContext": {
+                "durationMs": 3600000
+              },
+              "metrics": [
+                {
+                  "namespace": "microsoft.compute/virtualmachines",
+                  "metric": "microsoft.compute/virtualmachines--Percentage CPU",
+                  "aggregation": 4
+                }
+              ],
+              "title": "Virtual machines CPU performance",
+              "graphSettings": {
+                "type": 2,
+                "topContent": {
+                  "columnMatch": "Name",
+                  "formatter": 13,
+                  "formatOptions": {
+                    "linkTarget": "Resource",
+                    "linkIsContextBlade": true,
+                    "showIcon": false
+                  }
+                },
+                "centerContent": {
+                  "columnMatch": "microsoft.compute/virtualmachines--Percentage CPU",
+                  "formatter": 12,
+                  "formatOptions": {
+                    "palette": "none"
+                  },
+                  "numberFormat": {
+                    "unit": 1,
+                    "options": {
+                      "style": "decimal",
+                      "maximumFractionDigits": 1
+                    }
+                  }
+                },
+                "hivesContent": {
+                  "columnMatch": "Subscription",
+                  "formatter": 15,
+                  "formatOptions": {
+                    "linkTarget": null,
+                    "showIcon": true
+                  }
+                },
+                "nodeIdField": "Name",
+                "graphOrientation": 3,
+                "showOrientationToggles": false,
+                "nodeSize": null,
+                "staticNodeSize": 100,
+                "colorSettings": {
+                  "nodeColorField": "microsoft.compute/virtualmachines--Percentage CPU",
+                  "type": 4,
+                  "heatmapPalette": "greenRed",
+                  "heatmapMin": 30,
+                  "heatmapMax": 80,
+                  "emptyValueColor": "gray"
+                },
+                "groupByField": "Subscription",
+                "hivesMargin": 5
+              },
+              "gridSettings": {
+                "rowLimit": 10000
+              }
+            },
+            "name": "metric - 1"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "selectedTab",
+        "comparison": "isEqualTo",
+        "value": "monitoring"
+      },
+      "name": "group - Monitoring"
+    },
+    {
+      "type": 12,
+      "content": {
+        "version": "NotebookGroup/1.0",
+        "groupType": "editable",
+        "items": [
+          {
+            "type": 9,
+            "content": {
+              "version": "KqlParameterItem/1.0",
+              "parameters": [
+                {
+                  "id": "f726c19d-4d48-42cd-8c77-e94075a78efe",
+                  "version": "KqlParameterItem/1.0",
+                  "name": "TagName",
+                  "label": "Tag Name",
+                  "type": 1,
+                  "timeContext": {
+                    "durationMs": 86400000
+                  },
+                  "value": "test"
+                },
+                {
+                  "id": "ded426b3-b34f-4f58-a223-4eb451aae16b",
+                  "version": "KqlParameterItem/1.0",
+                  "name": "TagValue",
+                  "label": "Tag Value",
+                  "type": 1,
+                  "timeContext": {
+                    "durationMs": 86400000
+                  },
+                  "value": "module"
+                }
+              ],
+              "style": "above",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces"
+            },
+            "name": "parameters - 1"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "Resources \r\n| extend TagBool = iff(tags != '' and tags != '[]', \"Tagged\",\"Untagged\")\r\n| where type == \"microsoft.compute/virtualmachines\"\r\n| extend resourceGroupID = strcat(\"/subscriptions/\",subscriptionId,\"/resourceGroups/\",resourceGroup)\r\n| project id,name,location,resourceGroupID,subscriptionId",
+              "size": 0,
+              "title": "Untagged resource Groups",
+              "queryType": 1,
+              "resourceType": "microsoft.resourcegraph/resources",
+              "crossComponentResources": [
+                "{Subscription}"
+              ],
+              "gridSettings": {
+                "formatters": [
+                  {
+                    "columnMatch": "name",
+                    "formatter": 7,
+                    "formatOptions": {
+                      "linkTarget": "ArmTemplate",
+                      "linkLabel": "Add tag",
+                      "linkIsContextBlade": true,
+                      "templateRunContext": {
+                        "componentIdSource": "column",
+                        "componentId": "resourceGroupID",
+                        "templateUriSource": "static",
+                        "templateUri": "https://raw.githubusercontent.com/sebassem/MS-learn-Workbooks/main/Deploy-Tag.json",
+                        "templateParameters": [
+                          {
+                            "name": "virtualMachineName",
+                            "source": "column",
+                            "value": "name",
+                            "kind": "stringValue"
+                          },
+                          {
+                            "name": "tagName",
+                            "source": "parameter",
+                            "value": "TagName",
+                            "kind": "stringValue"
+                          },
+                          {
+                            "name": "tagValue",
+                            "source": "parameter",
+                            "value": "TagValue",
+                            "kind": "stringValue"
+                          }
+                        ],
+                        "titleSource": "static",
+                        "title": "Deploy a tag",
+                        "descriptionSource": "static",
+                        "description": "# Actions\r\nadd a tag to the virtual machine",
+                        "runLabelSource": "static",
+                        "runLabel": "Deploy Tag"
+                      }
+                    }
+                  },
+                  {
+                    "columnMatch": "subscriptionId",
+                    "formatter": 15,
+                    "formatOptions": {
+                      "linkTarget": null,
+                      "showIcon": true
+                    }
+                  },
+                  {
+                    "columnMatch": "SubscriptionName",
+                    "formatter": 15,
+                    "formatOptions": {
+                      "linkTarget": null,
+                      "showIcon": true
+                    }
+                  }
+                ]
+              }
+            },
+            "name": "query - 0"
+          }
+        ]
+      },
+      "conditionalVisibility": {
+        "parameterName": "selectedTab",
+        "comparison": "isEqualTo",
+        "value": "governance"
+      },
+      "name": "group - Governance"
+    }
+  ],
+  "fallbackResourceIds": [
+    "Azure Monitor"
+  ],
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+}

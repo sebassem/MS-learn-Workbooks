@@ -1,0 +1,403 @@
+{
+  "version": "Notebook/1.0",
+  "items": [
+    {
+      "type": 9,
+      "content": {
+        "version": "KqlParameterItem/1.0",
+        "crossComponentResources": [
+          "value::all"
+        ],
+        "parameters": [
+          {
+            "id": "2fb32dc5-d03e-499d-8da3-bb3e32bbe30a",
+            "version": "KqlParameterItem/1.0",
+            "name": "WebApps",
+            "type": 5,
+            "isRequired": true,
+            "query": "resources\r\n| where type == \"microsoft.web/sites\"\r\n| project id",
+            "crossComponentResources": [
+              "value::all"
+            ],
+            "value": "/subscriptions/51bef6c8-5c40-46d9-8b65-abe98ed6be2f/resourceGroups/rg-webapp-02/providers/Microsoft.Web/sites/to-do-app4gixrslbwjh3o",
+            "typeSettings": {
+              "additionalResourceOptions": []
+            },
+            "timeContext": {
+              "durationMs": 86400000
+            },
+            "queryType": 1,
+            "resourceType": "microsoft.resourcegraph/resources"
+          },
+          {
+            "id": "d07f1b51-06ae-408e-8186-2a30c26d6a1d",
+            "version": "KqlParameterItem/1.0",
+            "name": "CosmosDBs",
+            "type": 5,
+            "isRequired": true,
+            "query": "resources\r\n| where type== \"microsoft.documentdb/databaseaccounts\"\r\n| project id",
+            "crossComponentResources": [
+              "value::all"
+            ],
+            "value": "/subscriptions/51bef6c8-5c40-46d9-8b65-abe98ed6be2f/resourceGroups/rg-webapp-02/providers/Microsoft.DocumentDB/databaseAccounts/to-do-app4gixrslbwjh3o",
+            "typeSettings": {
+              "additionalResourceOptions": []
+            },
+            "timeContext": {
+              "durationMs": 86400000
+            },
+            "queryType": 1,
+            "resourceType": "microsoft.resourcegraph/resources"
+          },
+          {
+            "id": "5df1db7c-3ed1-40dd-bc42-265f1edc2ebd",
+            "version": "KqlParameterItem/1.0",
+            "name": "TimeRange",
+            "type": 4,
+            "isRequired": true,
+            "value": {
+              "durationMs": 259200000
+            },
+            "typeSettings": {
+              "selectableValues": [
+                {
+                  "durationMs": 3600000
+                },
+                {
+                  "durationMs": 14400000
+                },
+                {
+                  "durationMs": 43200000
+                },
+                {
+                  "durationMs": 86400000
+                },
+                {
+                  "durationMs": 172800000
+                },
+                {
+                  "durationMs": 259200000
+                },
+                {
+                  "durationMs": 604800000
+                },
+                {
+                  "durationMs": 1209600000
+                },
+                {
+                  "durationMs": 2419200000
+                },
+                {
+                  "durationMs": 2592000000
+                },
+                {
+                  "durationMs": 5184000000
+                },
+                {
+                  "durationMs": 7776000000
+                }
+              ]
+            },
+            "timeContext": {
+              "durationMs": 86400000
+            }
+          }
+        ],
+        "style": "pills",
+        "queryType": 1,
+        "resourceType": "microsoft.resourcegraph/resources"
+      },
+      "name": "parameters - 2"
+    },
+    {
+      "type": 10,
+      "content": {
+        "chartId": "workbook7002e23e-69b9-4502-aadc-750cc17d2c7b",
+        "version": "MetricsItem/2.0",
+        "size": 0,
+        "chartType": 2,
+        "resourceType": "microsoft.web/sites",
+        "metricScope": 0,
+        "resourceParameter": "WebApps",
+        "resourceIds": [
+          "{WebApps}"
+        ],
+        "timeContextFromParameter": "TimeRange",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "metrics": [
+          {
+            "namespace": "microsoft.web/sites",
+            "metric": "microsoft.web/sites--AppConnections",
+            "aggregation": 4,
+            "splitBy": null
+          }
+        ],
+        "title": "(Web App)Number of connections",
+        "gridSettings": {
+          "rowLimit": 10000
+        }
+      },
+      "customWidth": "50",
+      "name": "metric - 1"
+    },
+    {
+      "type": 10,
+      "content": {
+        "chartId": "workbookd3f105b0-d79f-48c8-83f1-292860501a61",
+        "version": "MetricsItem/2.0",
+        "size": 0,
+        "chartType": 2,
+        "resourceType": "microsoft.documentdb/databaseaccounts",
+        "metricScope": 0,
+        "resourceParameter": "CosmosDBs",
+        "resourceIds": [
+          "{CosmosDBs}"
+        ],
+        "timeContextFromParameter": "TimeRange",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "metrics": [
+          {
+            "namespace": "microsoft.documentdb/databaseaccounts",
+            "metric": "microsoft.documentdb/databaseaccounts-Requests-TotalRequests",
+            "aggregation": 7,
+            "splitBy": null
+          }
+        ],
+        "title": "(CosmosDB)Total requests",
+        "gridSettings": {
+          "rowLimit": 10000
+        }
+      },
+      "customWidth": "50",
+      "name": "metric - 2"
+    },
+    {
+      "type": 10,
+      "content": {
+        "chartId": "workbook60bd40a5-835f-476a-b5b8-bb08331e3393",
+        "version": "MetricsItem/2.0",
+        "size": 0,
+        "chartType": 2,
+        "resourceType": "microsoft.web/sites",
+        "metricScope": 0,
+        "resourceParameter": "WebApps",
+        "resourceIds": [
+          "{WebApps}"
+        ],
+        "timeContextFromParameter": "TimeRange",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "metrics": [
+          {
+            "namespace": "microsoft.web/sites",
+            "metric": "microsoft.web/sites--CpuTime",
+            "aggregation": 1,
+            "splitBy": null
+          }
+        ],
+        "title": "(Web App) CPU time",
+        "gridSettings": {
+          "rowLimit": 10000
+        }
+      },
+      "customWidth": "50",
+      "name": "metric - 3"
+    },
+    {
+      "type": 10,
+      "content": {
+        "chartId": "workbook4cc31679-aa78-4aa7-ac02-414d89fb8e7c",
+        "version": "MetricsItem/2.0",
+        "size": 0,
+        "chartType": 2,
+        "resourceType": "microsoft.documentdb/databaseaccounts",
+        "metricScope": 0,
+        "resourceParameter": "CosmosDBs",
+        "resourceIds": [
+          "{CosmosDBs}"
+        ],
+        "timeContextFromParameter": "TimeRange",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "metrics": [
+          {
+            "namespace": "microsoft.documentdb/databaseaccounts",
+            "metric": "microsoft.documentdb/databaseaccounts-Requests-NormalizedRUConsumption",
+            "aggregation": 4,
+            "splitBy": null
+          }
+        ],
+        "title": "(CosmosDB)RU consumption",
+        "gridSettings": {
+          "rowLimit": 10000
+        }
+      },
+      "customWidth": "50",
+      "name": "metric - 4"
+    },
+    {
+      "type": 3,
+      "content": {
+        "version": "KqlItem/1.0",
+        "query": "let appCount = 5;\r\nlet requestCount = 5;\r\nlet selectedApps = range i from 1 to 1 step 1\r\n| extend x = '{WebApps:name}'\r\n| extend x = split(x, ', ')\r\n| mvexpand x to typeof(string) limit 100\r\n| project appName = x;\r\nlet topItems = union pageViews\r\n| top-nested appCount of appName by AppMetric = dcount(user_Id) desc, top-nested requestCount of name by RequestMetric = dcount(user_Id) desc;\r\nlet topApps = topItems | summarize by appName;\r\nlet topRequests = topItems | summarize by strcat(appName, '::', name);\r\nlet rawData = union pageViews\r\n| extend name = iff(strcat(appName, '::', name) in (topRequests), name, 'Other pageViews'), appName = iff(appName in (topApps), appName, 'Other Apps');\r\nlet apps = rawData\r\n| summarize Users = dcount(user_Id), Sessions = dcount(session_Id), Views = count() by appName\r\n| project Id = appName, ParentId = '', Name = strcat('☁️ ', appName), Kind = 'Application', Users, Sessions, Views\r\n| join kind = inner (\r\n    rawData\r\n    | make-series Trend = dcount(user_Id) default = 0 on timestamp from {TimeRange:start} to {TimeRange:end} step {TimeRange:grain} by Id = appName\r\n) on Id\r\n| project-away Id1, timestamp\r\n| join kind = fullouter (selectedApps) on $left.Id == $right.appName\r\n| extend Id = appName, Name = strcat('☁️ ', appName), Kind = 'Application', Users = iff(Id == '', 0, Users), Sessions = iff(Id == '', 0, Sessions), Views = iff(Id == '', 0, Views), Trend = iff(Id == '', repeat(0, toint(({TimeRange:end} - {TimeRange:start}) / {TimeRange:grain})), Trend);\r\nlet requests = rawData\r\n| summarize Users = dcount(user_Id), Sessions = dcount(session_Id), Views = count()  by appName, name, itemType\r\n| project Id = strcat(appName, '::', name), ParentId = appName, Name = strcat(case(itemType == \"customEvent\", \"⚡\", itemType == \"pageView\", \"📃\", \"🌐\"), ' ', name), Kind = case(itemType == \"customEvent\", \"Custom Event\", itemType == \"pageView\", \"Page View\", \"Request\"), Users, Sessions, Views\r\n| join kind = inner (\r\n    rawData\r\n    | make-series Trend = dcount(user_Id) default = 0 on timestamp from {TimeRange:start} to {TimeRange:end} step {TimeRange:grain} by Id = strcat(appName, '::', name)\r\n) on Id\r\n| project-away Id1, timestamp;\r\nrequests\r\n| union (apps)\r\n| extend Rank = iff(Name contains 'Other Apps' or Name contains 'Other pageViews', 2, 1)\r\n| order by Rank asc, Users desc, Sessions desc, Views desc\r\n| project Id, ParentId, Name, Kind, ['Unique Users'] = Users, ['Unique Users Trend'] = Trend, ['Unique Sessions'] = Sessions, Views",
+        "size": 0,
+        "title": "(Web App)Usage",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "timeContextFromParameter": "TimeRange",
+        "queryType": 0,
+        "resourceType": "microsoft.insights/components",
+        "crossComponentResources": [
+          "/subscriptions/51bef6c8-5c40-46d9-8b65-abe98ed6be2f/resourceGroups/rg-webapp-02/providers/microsoft.insights/components/to-do-app4gixrslbwjh3o"
+        ],
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "Id",
+              "formatter": 5
+            },
+            {
+              "columnMatch": "ParentId",
+              "formatter": 5
+            },
+            {
+              "columnMatch": "Unique Users",
+              "formatter": 8,
+              "formatOptions": {
+                "palette": "blue"
+              }
+            },
+            {
+              "columnMatch": "Unique Users Trend",
+              "formatter": 9,
+              "formatOptions": {
+                "palette": "blue"
+              }
+            },
+            {
+              "columnMatch": "Unique Sessions",
+              "formatter": 8,
+              "formatOptions": {
+                "palette": "green"
+              }
+            },
+            {
+              "columnMatch": "Views",
+              "formatter": 8,
+              "formatOptions": {
+                "palette": "yellow"
+              }
+            }
+          ]
+        }
+      },
+      "customWidth": "50",
+      "name": "query - 5"
+    },
+    {
+      "type": 10,
+      "content": {
+        "chartId": "workbookc87daabb-1e66-48ef-8d97-6414247cd15a",
+        "version": "MetricsItem/2.0",
+        "size": 0,
+        "chartType": 0,
+        "resourceType": "microsoft.documentdb/databaseaccounts",
+        "metricScope": 0,
+        "resourceParameter": "CosmosDBs",
+        "resourceIds": [
+          "{CosmosDBs}"
+        ],
+        "timeContextFromParameter": "TimeRange",
+        "timeContext": {
+          "durationMs": 0
+        },
+        "metrics": [
+          {
+            "namespace": "microsoft.documentdb/databaseaccounts",
+            "metric": "microsoft.documentdb/databaseaccounts-Requests-TotalRequests",
+            "aggregation": 7
+          },
+          {
+            "namespace": "microsoft.documentdb/databaseaccounts",
+            "metric": "microsoft.documentdb/databaseaccounts-Requests-TotalRequests",
+            "aggregation": 7,
+            "splitBy": "OperationType",
+            "splitBySortOrder": -1,
+            "splitByLimit": 3,
+            "columnName": "Operations"
+          }
+        ],
+        "title": "(CosmosDB)Operations",
+        "gridSettings": {
+          "formatters": [
+            {
+              "columnMatch": "Subscription",
+              "formatter": 5
+            },
+            {
+              "columnMatch": "microsoft.documentdb/databaseaccounts-Requests-TotalRequests",
+              "formatter": 8,
+              "formatOptions": {
+                "min": 0,
+                "palette": "blue"
+              },
+              "numberFormat": {
+                "unit": 17,
+                "options": {
+                  "style": "decimal",
+                  "maximumFractionDigits": 1
+                }
+              }
+            },
+            {
+              "columnMatch": "microsoft.documentdb/databaseaccounts-Requests-TotalRequests Timeline",
+              "formatter": 21,
+              "formatOptions": {
+                "palette": "blue"
+              }
+            },
+            {
+              "columnMatch": ".*\\/Operations$",
+              "formatter": 8,
+              "formatOptions": {
+                "palette": "blue",
+                "aggregation": "Sum"
+              },
+              "numberFormat": {
+                "unit": 17,
+                "options": {
+                  "style": "decimal",
+                  "maximumFractionDigits": 1
+                }
+              }
+            }
+          ],
+          "rowLimit": 10000,
+          "labelSettings": [
+            {
+              "columnId": "microsoft.documentdb/databaseaccounts-Requests-TotalRequests",
+              "label": "Total Requests (Count)"
+            },
+            {
+              "columnId": "microsoft.documentdb/databaseaccounts-Requests-TotalRequests Timeline",
+              "label": "Total Requests Timeline"
+            }
+          ]
+        }
+      },
+      "customWidth": "50",
+      "name": "metric - 6"
+    }
+  ],
+  "fallbackResourceIds": [
+    "Azure Monitor"
+  ],
+  "$schema": "https://github.com/Microsoft/Application-Insights-Workbooks/blob/master/schema/workbook.json"
+}
