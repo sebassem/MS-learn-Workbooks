@@ -959,7 +959,7 @@
                   "timeContext": {
                     "durationMs": 86400000
                   },
-                  "value": "test"
+                  "value": "asdad"
                 },
                 {
                   "id": "ded426b3-b34f-4f58-a223-4eb451aae16b",
@@ -970,7 +970,7 @@
                   "timeContext": {
                     "durationMs": 86400000
                   },
-                  "value": "module"
+                  "value": "asd"
                 }
               ],
               "style": "above",
@@ -1028,7 +1028,7 @@
                         "titleSource": "static",
                         "title": "Deploy a tag",
                         "descriptionSource": "static",
-                        "description": "# Actions\r\nadd a tag to the virtual machine",
+                        "description": "# Description\r\nThis template add a tag name **{TagName}** with tag value **{TagValue}** to the Virtual Machine\r\n\r\n# Actions:\r\n- Click Deply Tag to deploy the tag to the Virtual Machine\r\n- Click View Template to examine the template and parameters used during deployment\r\n\r\n\r\n\r\n",
                         "runLabelSource": "static",
                         "runLabel": "Deploy Tag"
                       }
