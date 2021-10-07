@@ -48,6 +48,7 @@ param adminPassword string
 
 @description('The Windows version for the VM. This will pick a fully patched image of this given Windows version.')
 param windowsOSVersion string = '2019-Datacenter'
+param ubuntuOsVersion string = '20_04-lts-gen2'
 
 
 
@@ -56,6 +57,15 @@ var websiteName_var = applicationName
 var hostingPlanName_var = applicationName
 var appInsightsName = '${applicationName}-insights'
 var logAnalyticsName = '${applicationName}-la'
+var rg= resourceGroup().name
+var cloudInit= '''
+#cloud-config
+packages:
+ - stress
+
+runcmd:
+-stress --cpu 8 -v -t 10s
+'''
 
 var VMSkus = [
   {
@@ -274,12 +284,13 @@ resource vm 'Microsoft.Compute/virtualMachines@2021-04-01' = [for (sku, i) in VM
       computerName: 'vm00-${i}'
       adminPassword: adminPassword
       adminUsername: adminUserName
+      customData: base64(cloudInit)
     }
     storageProfile: {
       imageReference: {
-        publisher: 'MicrosoftWindowsServer'
-        offer: 'WindowsServer'
-        sku: windowsOSVersion
+        publisher: 'Canonical'
+        offer: '0001-com-ubuntu-server-focal'
+        sku: ubuntuOsVersion
         version: 'latest'
       }
       osDisk:{
@@ -296,3 +307,15 @@ resource vm 'Microsoft.Compute/virtualMachines@2021-04-01' = [for (sku, i) in VM
   }
 }]
 
+/*resource runScript 'Microsoft.Compute/virtualMachines/runCommands@2021-03-01' = {
+  name: 'stress-CPU'
+  parent: vm[0]
+  location: 'eastus2'
+  properties: {
+    source: {
+      commandId: 'RunShellScript'
+      script: 'sudo apt-get install stress;sudo stress --cpu 16 -v -t 20s'
+    }
+  }
+}
+*/
