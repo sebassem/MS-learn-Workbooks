@@ -865,7 +865,7 @@
                 "{VirtualMachines}"
               ],
               "timeContext": {
-                "durationMs": 3600000
+                "durationMs": 1800000
               },
               "metrics": [
                 {
