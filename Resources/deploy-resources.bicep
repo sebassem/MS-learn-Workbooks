@@ -47,7 +47,7 @@ param adminUserName string
 param adminPassword string
 
 @description('The Windows version for the VM. This will pick a fully patched image of this given Windows version.')
-param windowsOSVersion string = '2019-Datacenter'
+//param windowsOSVersion string = '2019-Datacenter'
 param ubuntuOsVersion string = '20_04-lts-gen2'
 
 
@@ -57,7 +57,7 @@ var websiteName_var = applicationName
 var hostingPlanName_var = applicationName
 var appInsightsName = '${applicationName}-insights'
 var logAnalyticsName = '${applicationName}-la'
-var rg= resourceGroup().name
+//var rg= resourceGroup().name
 var cloudInit= '''
 #cloud-config
 packages:
@@ -102,7 +102,7 @@ var VMSkus = [
   }
 ]
 
-var nicName = 'myVMNic'
+//var nicName = 'myVMNic'
 var virtualNetworkLocation = 'eastus2'
 var addressPrefix = '10.0.0.0/16'
 var subnetName = 'Subnet'
