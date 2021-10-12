@@ -307,7 +307,7 @@
                   "crossComponentResources": [
                     "{Subscription}"
                   ],
-                  "value": "/subscriptions/9b65ec1f-c8e3-4ec5-a482-56784190935b/resourceGroups/webapp2/providers/Microsoft.Web/sites/to-do-appjhem5ani7r4lw",
+                  "value": null,
                   "typeSettings": {
                     "additionalResourceOptions": []
                   },
@@ -326,7 +326,7 @@
                   "crossComponentResources": [
                     "{Subscription}"
                   ],
-                  "value": "/subscriptions/9b65ec1f-c8e3-4ec5-a482-56784190935b/resourceGroups/webapp2/providers/Microsoft.DocumentDB/databaseAccounts/to-do-appjhem5ani7r4lw",
+                  "value": null,
                   "typeSettings": {
                     "additionalResourceOptions": []
                   },
@@ -573,7 +573,7 @@
               "size": 0,
               "title": "(Web App)Usage",
               "timeContext": {
-                "durationMs": 0
+                "durationMs": 3600000
               },
               "timeContextFromParameter": "TimeRange",
               "queryType": 0,
@@ -959,7 +959,7 @@
                   "timeContext": {
                     "durationMs": 86400000
                   },
-                  "value": "asdad"
+                  "value": ""
                 },
                 {
                   "id": "ded426b3-b34f-4f58-a223-4eb451aae16b",
@@ -970,7 +970,7 @@
                   "timeContext": {
                     "durationMs": 86400000
                   },
-                  "value": "asd"
+                  "value": ""
                 }
               ],
               "style": "above",
@@ -983,9 +983,9 @@
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
-              "query": "Resources \r\n| extend TagBool = iff(tags != '' and tags != '[]', \"Tagged\",\"Untagged\")\r\n| where type == \"microsoft.compute/virtualmachines\"\r\n| extend resourceGroupID = strcat(\"/subscriptions/\",subscriptionId,\"/resourceGroups/\",resourceGroup)\r\n| project id,name,location,resourceGroupID,subscriptionId",
+              "query": "Resources \r\n| where type == \"microsoft.compute/virtualmachines\" and (tags =~ '' or tags =~ '{}')\r\n| extend resourceGroupID = strcat(\"/subscriptions/\",subscriptionId,\"/resourceGroups/\",resourceGroup)\r\n| project id,name,location,resourceGroupID,subscriptionId\r\n\r\n",
               "size": 0,
-              "title": "Untagged resource Groups",
+              "title": "Untagged Virtual machines",
               "queryType": 1,
               "resourceType": "microsoft.resourcegraph/resources",
               "crossComponentResources": [
