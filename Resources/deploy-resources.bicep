@@ -69,7 +69,7 @@ runcmd:
 
 var VMSkus = [
   {
-    name:'Standard_D2s_v3'
+    name:'Standard_DS2_v2'
     location: 'eastus2'
   }
   {
@@ -89,15 +89,15 @@ var VMSkus = [
     location: 'eastus2'
   }
   {
-    name:'Standard_DS3_v2'
+    name:'Standard_D2S_v3'
     location: 'eastus2'
   }
   {
-    name:'Standard_DS3_v2'
+    name:'Standard_D2S_v3'
     location: 'eastus2'
   }
   {
-    name:'Standard_DS2_v2'
+    name:'Standard_B1ms'
     location: 'eastus2'
   }
 ]
