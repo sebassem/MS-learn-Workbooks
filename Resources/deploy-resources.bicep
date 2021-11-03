@@ -70,31 +70,31 @@ runcmd:
 var VMSkus = [
   {
     name:'Standard_DS2_v2'
-    location: 'eastus2'
+    location: 'eastus'
   }
   {
     name:'Standard_DS1_v2'
-    location: 'eastus2'
+    location: 'eastus'
   }
   {
     name:'Standard_B2s'
-    location: 'eastus2'
+    location: 'eastus'
   }
   {
     name:'Standard_B1s'
-    location: 'eastus2'
+    location: 'eastus'
   }
   {
     name:'Standard_B2ms'
-    location: 'eastus2'
+    location: 'eastus'
   }
   {
     name:'Standard_B2ms'
-    location: 'eastus2'
+    location: 'eastus'
   }
   {
     name:'Standard_B1ms'
-    location: 'eastus2'
+    location: 'eastus'
   }
 ]
 
