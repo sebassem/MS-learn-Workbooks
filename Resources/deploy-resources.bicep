@@ -89,7 +89,7 @@ var VMSkus = [
     location: 'eastus2'
   }
   {
-    name:'Standard_D2S_v3'
+    name:'Standard_B2ms'
     location: 'eastus2'
   }
   {
